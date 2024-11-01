@@ -2,3 +2,12 @@
 #include "Maps.h"
 #include "Vehicle.h"
 #include "character.h"
+
+using namespace std;
+
+int main()
+{
+    cout << "\nWelcome to Jordan's Kart! Please choose your settings!\n";
+
+
+}
