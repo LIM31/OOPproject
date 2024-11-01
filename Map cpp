@@ -1,1 +1,59 @@
+// map.cpp
+
+#include "map.h"
+
+// Constructor to initialize predefined maps
+Maps::Maps() {
+    map_list.emplace_back("Forest", Weather::SUNNY, TimeOfDay::DAY);
+    map_list.emplace_back("Desert", Weather::RAINY, TimeOfDay::NIGHT);
+    map_list.emplace_back("Mountain", Weather::SNOWY, TimeOfDay::DAY);
+}
+
+// Function to display map options and let player choose one
+void Maps::chooseMap() const {
+    std::cout << "Choose a map:\n";
+
+    // Display each map with its attributes
+    for (size_t i = 0; i < map_list.size(); ++i) {
+        const Map& map = map_list[i];
+        std::cout << i + 1 << ". " << map.name << " - "
+            << "Weather: " << weatherToString(map.weather) << ", "
+            << "Time of Day: " << timeOfDayToString(map.time_of_day) << "\n";
+    }
+
+    // Get player's choice
+    int choice;
+    std::cout << "Enter the number of the map you want to choose: ";
+    std::cin >> choice;
+
+    // Validate choice
+    if (choice < 1 || choice > map_list.size()) {
+        std::cout << "Invalid choice! Please choose a valid map number.\n";
+    }
+    else {
+        const Map& selected_map = map_list[choice - 1];
+        std::cout << "You selected: " << selected_map.name << " with "
+            << weatherToString(selected_map.weather) << " weather at "
+            << timeOfDayToString(selected_map.time_of_day) << ".\n";
+    }
+}
+
+// Helper function to display weather as a string
+std::string Maps::weatherToString(Weather weather) {
+    switch (weather) {
+    case Weather::SUNNY: return "Sunny";
+    case Weather::RAINY: return "Rainy";
+    case Weather::SNOWY: return "Snowy";
+    }
+    return "Unknown";
+}
+
+// Helper function to display time of day as a string
+std::string Maps::timeOfDayToString(TimeOfDay time_of_day) {
+    switch (time_of_day) {
+    case TimeOfDay::DAY: return "Day";
+    case TimeOfDay::NIGHT: return "Night";
+    }
+    return "Unknown";
+}
 
