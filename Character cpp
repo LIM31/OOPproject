@@ -1,1 +1,57 @@
+// character.cpp
+
+#include <iostream>
+#include "character.h"
+
+// Character constructor
+Character::Character(const std::string& hairColor, Gender gender, const FacialFeatures& features)
+    : hair_color(hairColor), gender(gender), face(features) {}
+
+// Describe function
+void Character::describe() const {
+    // Display hair color
+    std::cout << "Hair Color: " << hair_color << std::endl;
+
+    // Display gender
+    std::cout << "Gender: ";
+    switch (gender) {
+    case Gender::MALE: std::cout << "Male"; break;
+    case Gender::FEMALE: std::cout << "Female"; break;
+    }
+    std::cout << std::endl;
+
+    // Display facial features
+    std::cout << "Facial Features:\n";
+    std::cout << "  Eye Size: " << face.eye_size << std::endl;
+    std::cout << "  Nose Size: " << face.nose_size << std::endl;
+    std::cout << "  Mouth Size: " << face.mouth_size << std::endl;
+}
+
+// Customize function
+void Character::customize() {
+    // Get hair color
+    std::cout << "Enter Hair Color: ";
+    std::cin >> hair_color;
+
+    // Get gender
+    int gender_input;
+    std::cout << "Select Gender (1 = Male, 2 = Female): ";
+    std::cin >> gender_input;
+    gender = getGenderFromInput(gender_input);
+
+    // Get facial features
+    std::cout << "Enter Eye Size (1-10): ";
+    std::cin >> face.eye_size;
+
+    std::cout << "Enter Nose Size (1-10): ";
+    std::cin >> face.nose_size;
+
+    std::cout << "Enter Mouth Size (1-10): ";
+    std::cin >> face.mouth_size;
+}
+
+// Helper function to convert user input to Gender
+Gender Character::getGenderFromInput(int input) {
+    return (input == 1) ? Gender::MALE : Gender::FEMALE;
+}
 
