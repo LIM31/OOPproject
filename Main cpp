@@ -1,13 +1,30 @@
-#include <iostream>
-#include "Maps.h"
-#include "Vehicle.h"
+// main.cpp
+
+
 #include "character.h"
+#include "map.h"
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
 
 using namespace std;
 
-int main()
-{
-    cout << "\nWelcome to Jordan's Kart! Please choose your settings!\n";
+int main() {
+    // Character customization
+    Character character;
 
+    cout << "Customize your character!" << endl;
+    character.customize();
 
+    cout << "\nYour customized character:" << endl;
+    character.describe();
+
+    // Map selection
+    Maps maps;
+
+    cout << "\nWelcome to the Map Selection!" << endl;
+    maps.chooseMap();
+
+    return 0;
 }
