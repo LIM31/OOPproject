@@ -1,59 +1,54 @@
 // map.cpp
 
 #include "map.h"
+#include <iostream>
 
-// Constructor to initialize predefined maps
 Maps::Maps() {
-    map_list.emplace_back("Forest", Weather::SUNNY, TimeOfDay::DAY);
-    map_list.emplace_back("Desert", Weather::RAINY, TimeOfDay::NIGHT);
-    map_list.emplace_back("Mountain", Weather::SNOWY, TimeOfDay::DAY);
+    // Initialize with some example maps
+    map_list.push_back(Map("Sunny Meadow", Weather::SUNNY, TimeOfDay::DAY));
+    map_list.push_back(Map("Rainy Forest", Weather::RAINY, TimeOfDay::NIGHT));
+    map_list.push_back(Map("Snowy Mountain", Weather::SNOWY, TimeOfDay::DAY));
 }
 
-// Function to display map options and let player choose one
 void Maps::chooseMap() const {
-    std::cout << "Choose a map:\n";
-
-    // Display each map with its attributes
+    std::cout << "Available Maps: \n";
     for (size_t i = 0; i < map_list.size(); ++i) {
         const Map& map = map_list[i];
-        std::cout << i + 1 << ". " << map.name << " - "
-            << "Weather: " << weatherToString(map.weather) << ", "
-            << "Time of Day: " << timeOfDayToString(map.time_of_day) << "\n";
+        std::cout << i + 1 << ". " << map.getName() << " (" 
+                  << weatherToString(map.getWeather()) << ", "
+                  << timeOfDayToString(map.getTimeOfDay()) << ")\n";
     }
 
-    // Get player's choice
+    std::cout << "Enter the number of your choice: ";
     int choice;
-    std::cout << "Enter the number of the map you want to choose: ";
     std::cin >> choice;
 
-    // Validate choice
-    if (choice < 1 || choice > map_list.size()) {
-        std::cout << "Invalid choice! Please choose a valid map number.\n";
-    }
-    else {
-        const Map& selected_map = map_list[choice - 1];
-        std::cout << "You selected: " << selected_map.name << " with "
-            << weatherToString(selected_map.weather) << " weather at "
-            << timeOfDayToString(selected_map.time_of_day) << ".\n";
+    // Handle invalid input
+    handleMapChoice(choice);
+}
+
+void Maps::handleMapChoice(int choice) const {
+    if (choice < 1 || choice > static_cast<int>(map_list.size())) {
+        std::cout << "Invalid choice. Please try again.\n";
+    } else {
+        const Map& selectedMap = map_list[choice - 1];
+        std::cout << "You have chosen: " << selectedMap.getName() << "\n";
     }
 }
 
-// Helper function to display weather as a string
 std::string Maps::weatherToString(Weather weather) {
     switch (weather) {
-    case Weather::SUNNY: return "Sunny";
-    case Weather::RAINY: return "Rainy";
-    case Weather::SNOWY: return "Snowy";
+        case Weather::SUNNY: return "Sunny";
+        case Weather::RAINY: return "Rainy";
+        case Weather::SNOWY: return "Snowy";
+        default: return "Unknown";
     }
-    return "Unknown";
 }
 
-// Helper function to display time of day as a string
 std::string Maps::timeOfDayToString(TimeOfDay time_of_day) {
     switch (time_of_day) {
-    case TimeOfDay::DAY: return "Day";
-    case TimeOfDay::NIGHT: return "Night";
+        case TimeOfDay::DAY: return "Day";
+        case TimeOfDay::NIGHT: return "Night";
+        default: return "Unknown";
     }
-    return "Unknown";
 }
-
