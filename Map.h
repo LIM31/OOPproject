@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <stdexcept>  // For exception handling
 
 // Enum class for Weather
 enum class Weather {
@@ -29,6 +30,11 @@ struct Map {
     // Constructor
     Map(const std::string& name, Weather weather, TimeOfDay time_of_day)
         : name(name), weather(weather), time_of_day(time_of_day) {}
+
+    // Getter functions to access map details
+    const std::string& getName() const { return name; }
+    Weather getWeather() const { return weather; }
+    TimeOfDay getTimeOfDay() const { return time_of_day; }
 };
 
 // Maps class to store and manage available maps
@@ -48,8 +54,9 @@ private:
 
     // Helper function to display time of day as a string
     static std::string timeOfDayToString(TimeOfDay time_of_day);
+
+    // Function to handle user input for choosing maps
+    void handleMapChoice(int choice) const;
 };
 
 #endif // MAP_H
-
-
