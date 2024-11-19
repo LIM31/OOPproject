@@ -1,30 +1,47 @@
-// main.cpp
-
-
-#include "character.h"
+#include "Vehicle.h"
 #include "map.h"
 #include <iostream>
-#include <iomanip>
-#include <string>
-#include <cctype>
 
-using namespace std;
+void displayMenu() {
+    std::cout << "\nMain Menu:\n";
+    std::cout << "1. Create and customize a vehicle\n";
+    std::cout << "2. Select a map\n";
+    std::cout << "3. Exit\n";
+    std::cout << "Enter your choice: ";
+}
 
 int main() {
-    // Character customization
-    Character character;
+    Vehicle vehicle;  // Default vehicle
+    Maps maps;        // Predefined maps
 
-    cout << "Customize your character!" << endl;
-    character.customize();
+    bool running = true;
+    while (running) {
+        displayMenu();
+        int choice;
+        std::cin >> choice;
 
-    cout << "\nYour customized character:" << endl;
-    character.describe();
+        switch (choice) {
+            case 1:
+                std::cout << "\n--- Customize Your Vehicle ---\n";
+                vehicle.customize();
+                std::cout << "\n--- Your Vehicle ---\n";
+                vehicle.display();
+                break;
 
-    // Map selection
-    Maps maps;
+            case 2:
+                std::cout << "\n--- Select a Map ---\n";
+                maps.chooseMap();
+                break;
 
-    cout << "\nWelcome to the Map Selection!" << endl;
-    maps.chooseMap();
+            case 3:
+                std::cout << "Exiting the program. Goodbye!\n";
+                running = false;
+                break;
+
+            default:
+                std::cout << "Invalid choice! Please try again.\n";
+        }
+    }
 
     return 0;
 }
