@@ -1,1 +1,135 @@
+#include "Vehicle.h"
+
+// Static constants for EngineType
+const EngineType EngineType::PETROL(1, "Petrol");
+const EngineType EngineType::DIESEL(2, "Diesel");
+const EngineType EngineType::ELECTRIC(3, "Electric");
+const EngineType EngineType::HYBRID(4, "Hybrid");
+const EngineType EngineType::UNKNOWN(5, "Unknown");
+
+// Static constants for Color
+const Color Color::RED(1, "Red");
+const Color Color::BLUE(2, "Blue");
+const Color Color::GREEN(3, "Green");
+const Color Color::BLACK(4, "Black");
+const Color Color::WHITE(5, "White");
+const Color Color::UNKNOWN(6, "Unknown");
+
+// Static constants for Size
+const Size Size::SMALL(1, "Small");
+const Size Size::MEDIUM(2, "Medium");
+const Size Size::LARGE(3, "Large");
+const Size Size::UNKNOWN(4, "Unknown");
+
+// EngineType toString
+std::string EngineType::toString() const {
+    return name;
+}
+
+// Color toString
+std::string Color::toString() const {
+    return name;
+}
+
+// Size toString
+std::string Size::toString() const {
+    return name;
+}
+
+// Vehicle constructor
+Vehicle::Vehicle(EngineType engine, Color color, Size size) {
+    this->engine = new EngineType(engine);
+    this->color = new Color(color);
+    this->size = new Size(size);
+}
+
+// Destructor
+Vehicle::~Vehicle() {
+    delete engine;
+    delete color;
+    delete size;
+}
+
+// Copy Constructor
+Vehicle::Vehicle(const Vehicle& other) {
+    deepCopy(other);
+}
+
+// Copy Assignment Operator
+Vehicle& Vehicle::operator=(const Vehicle& other) {
+    if (this != &other) { // Self-assignment check
+        delete engine;
+        delete color;
+        delete size;
+        deepCopy(other);
+    }
+    return *this;
+}
+
+// Deep Copy Helper Function
+void Vehicle::deepCopy(const Vehicle& other) {
+    engine = new EngineType(*other.engine);
+    color = new Color(*other.color);
+    size = new Size(*other.size);
+}
+
+// Display vehicle information
+void Vehicle::display() const {
+    std::cout << "Vehicle Information:\n";
+    std::cout << "Engine Type: " << engine->toString() << "\n";
+    std::cout << "Color: " << color->toString() << "\n";
+    std::cout << "Size: " << size->toString() << "\n";
+}
+
+// Customize vehicle
+void Vehicle::customize() {
+    int choice;
+
+    std::cout << "Customize your vehicle:\n";
+
+    // Choose engine type
+    std::cout << "Select Engine Type:\n";
+    std::cout << "1. Petrol\n2. Diesel\n3. Electric\n4. Hybrid\n5. Unknown\n";
+    std::cin >> choice;
+    switch (choice) {
+        case 1: *engine = EngineType::PETROL; break;
+        case 2: *engine = EngineType::DIESEL; break;
+        case 3: *engine = EngineType::ELECTRIC; break;
+        case 4: *engine = EngineType::HYBRID; break;
+        case 5: *engine = EngineType::UNKNOWN; break;
+        default: 
+            std::cerr << "Invalid choice! Setting engine to Unknown.\n";
+            *engine = EngineType::UNKNOWN;
+    }
+
+    // Choose color
+    std::cout << "Select Color:\n";
+    std::cout << "1. Red\n2. Blue\n3. Green\n4. Black\n5. White\n6. Unknown\n";
+    std::cin >> choice;
+    switch (choice) {
+        case 1: *color = Color::RED; break;
+        case 2: *color = Color::BLUE; break;
+        case 3: *color = Color::GREEN; break;
+        case 4: *color = Color::BLACK; break;
+        case 5: *color = Color::WHITE; break;
+        case 6: *color = Color::UNKNOWN; break;
+        default: 
+            std::cerr << "Invalid choice! Setting color to Unknown.\n";
+            *color = Color::UNKNOWN;
+    }
+
+    // Choose size
+    std::cout << "Select Size:\n";
+    std::cout << "1. Small\n2. Medium\n3. Large\n4. Unknown\n";
+    std::cin >> choice;
+    switch (choice) {
+        case 1: *size = Size::SMALL; break;
+        case 2: *size = Size::MEDIUM; break;
+        case 3: *size = Size::LARGE; break;
+        case 4: *size = Size::UNKNOWN; break;
+        default: 
+            std::cerr << "Invalid choice! Setting size to Unknown.\n";
+            *size = Size::UNKNOWN;
+    }
+}
 
