@@ -1,3 +1,4 @@
+
 #include "Vehicle.h"
 #include "Car.h"
 #include "Motorcycle.h"
@@ -5,6 +6,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <limits>
 
 void displayMenu() {
     std::cout << "\nMain Menu:\n";
@@ -24,7 +26,12 @@ int main() {
     while (running) {
         displayMenu();
         int choice;
-        std::cin >> choice;
+        if (!(std::cin >> choice)) {
+            std::cin.clear(); // Clear error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
 
         switch (choice) {
             case 1: {
