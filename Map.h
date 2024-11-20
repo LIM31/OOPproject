@@ -1,3 +1,4 @@
+
 #ifndef MAP_H
 #define MAP_H
 
@@ -48,17 +49,12 @@ public:
     // Constructor
     Map(const std::string& name, const Weather& weather, const TimeOfDay& time_of_day);
 
-    // Big Three
-    ~Map() override;
-    Map(const Map& other);
-    Map& operator=(const Map& other);
-
     // Overridden methods
     std::string getDetails() const override;
     std::string getName() const override;
 
 private:
-    std::string* name;      // Dynamically allocated for demonstration
+    std::string name;      // Name of the map
     Weather weather;        // Weather object
     TimeOfDay time_of_day;  // Time of day object
 };
@@ -68,13 +64,13 @@ class Maps {
 public:
     Maps();                           // Constructor
     ~Maps();                          // Destructor
-    Maps(const Maps& other);          // Copy constructor
-    Maps& operator=(const Maps& other); // Copy assignment operator
+    Maps(const Maps& other) = delete; // Disable copy constructor
+    Maps& operator=(const Maps& other) = delete; // Disable copy assignment operator
 
     void chooseMap() const;           // Display and select a map
 
 private:
-    std::vector<MapBase*> map_list;   // List of polymorphic maps
+    std::vector<std::unique_ptr<MapBase>> map_list; // List of polymorphic maps
     void handleMapChoice(int choice) const;
 };
 
