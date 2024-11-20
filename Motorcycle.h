@@ -2,6 +2,8 @@
 #define MOTORCYCLE_H
 
 #include "Vehicle.h"
+#include "EngineType.h"
+#include "Color.h"
 
 class Motorcycle : public Vehicle {
 public:
@@ -14,16 +16,9 @@ public:
     // Override customize function
     void customize() override;
 
-    // Getter and Setter methods for encapsulation
-    std::string getEngine() const;
-    void setEngine(const std::string& newEngine);
-
-    std::string getColor() const;
-    void setColor(const std::string& newColor);
-
 private:
-    std::string engine; // Engine type (e.g., Petrol, Electric)
-    std::string color;  // Color of the motorcycle
+    EngineType engine; // Encapsulated engine type
+    Color color;       // Encapsulated color
 };
 
 #endif // MOTORCYCLE_H
