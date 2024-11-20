@@ -1,6 +1,7 @@
 #include "Vehicle.h"
 #include "Car.h"
 #include "Motorcycle.h"
+#include "map.h"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -9,13 +10,15 @@ void displayMenu() {
     std::cout << "\nMain Menu:\n";
     std::cout << "1. Create and customize a car\n";
     std::cout << "2. Create and customize a motorcycle\n";
-    std::cout << "3. View all vehicles\n";
-    std::cout << "4. Exit\n";
+    std::cout << "3. Select a map\n";
+    std::cout << "4. View all vehicles\n";
+    std::cout << "5. Exit\n";
     std::cout << "Enter your choice: ";
 }
 
 int main() {
-    std::vector<std::unique_ptr<Vehicle>> vehicles; // Polymorphic container
+    std::vector<std::unique_ptr<Vehicle>> vehicles; // Polymorphic container for vehicles
+    Maps maps;                                      // Map manager
     bool running = true;
 
     while (running) {
@@ -37,6 +40,11 @@ int main() {
                 break;
             }
             case 3: {
+                std::cout << "\n--- Select a Map ---\n";
+                maps.chooseMap();
+                break;
+            }
+            case 4: {
                 std::cout << "\n--- All Vehicles ---\n";
                 for (const auto& vehicle : vehicles) {
                     vehicle->display(); // Polymorphic call
@@ -44,7 +52,7 @@ int main() {
                 }
                 break;
             }
-            case 4:
+            case 5:
                 std::cout << "Exiting the program. Goodbye!\n";
                 running = false;
                 break;
