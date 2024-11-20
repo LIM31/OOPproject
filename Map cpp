@@ -22,6 +22,9 @@ std::string TimeOfDay::toString() const {
 
 // ---------------------- Map Implementation ----------------------
 
+Map::Map(const std::string& name, const Weather& weather, const TimeOfDay& time_of_day)
+    : name(new std::string(name)), weather(weather), time_of_day(time_of_day) {}
+
 Map::~Map() {
     delete name; // Clean up dynamically allocated memory
 }
@@ -41,6 +44,10 @@ Map& Map::operator=(const Map& other) {
 
 std::string Map::getDetails() const {
     return *name + " (" + weather.toString() + ", " + time_of_day.toString() + ")";
+}
+
+std::string Map::getName() const {
+    return *name;
 }
 
 // ---------------------- Maps Implementation ----------------------
